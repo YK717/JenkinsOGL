@@ -88,13 +88,13 @@ publishing {
 
 publish {
     doLast {
-        notifySlack("Publish successful for project ${project.name}, version ${project.version}!")
+        //notifySlack("Publish successful for project ${project.name}, version ${project.version}!")
         notifyTeamByEmail("Publish successful for project ${project.name}, version ${project.version}")
     }
 }
 
 // Define the notification function
-def notifySlack(String message) {
+/*def notifySlack(String message) {
     def webhookUrl = "https://hooks.slack.com/services/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"
 
     def payload = [text: message]
@@ -113,7 +113,7 @@ def notifySlack(String message) {
     if (connection.responseCode != 200) {
         throw new GradleException("Failed to send Slack notification: ${connection.responseCode} ${connection.responseMessage}")
     }
-}
+}*/
 
 def notifyTeamByEmail(String messageText) {
     def props = new Properties()
