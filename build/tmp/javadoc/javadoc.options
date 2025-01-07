@@ -1,0 +1,10 @@
+-classpath '/home/ilyes/OGL/TP5/FinalTP/build/classes/java/main:/home/ilyes/OGL/TP5/FinalTP/build/resources/main'
+-d '/home/ilyes/OGL/TP5/FinalTP/build/docs/javadoc'
+-doctitle 'FinalTP 1.0-SNAPSHOT API'
+-notimestamp 
+-quiet 
+-windowtitle 'FinalTP 1.0-SNAPSHOT API'
+'/home/ilyes/OGL/TP5/FinalTP/src/main/java/com/example/Main.java'
+'/home/ilyes/OGL/TP5/FinalTP/src/main/java/com/example/service/MatrixMathematics.java'
+'/home/ilyes/OGL/TP5/FinalTP/src/main/java/com/example/exception/NoSquareException.java'
+'/home/ilyes/OGL/TP5/FinalTP/src/main/java/com/example/model/Matrix.java'
