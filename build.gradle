@@ -60,6 +60,7 @@ sonar {
     properties {
         property "sonar.projectKey", "myProjectKey"
         property "sonar.host.url", "http://197.140.142.82:9000/"
+        property "sonar.skipCompile", "true"
     }
 }
 
