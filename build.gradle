@@ -71,11 +71,10 @@ javadoc {
 publishing {
     repositories {
         maven {
-            url "https://mymavenrepo.com/repo/vl5BUEJf7IpuxkRtNhwD/"
-
+            url 'https://mymavenrepo.com/repo/cEmjfkxugPlzLxXg1A2B/'
             credentials {
-                username "myMavenRepo"
-                password "test"
+                username 'myMavenRepo'
+                password 'test0005'
             }
         }
     }
