@@ -60,6 +60,7 @@ sonar {
     properties {
         property "sonar.projectKey", "myProjectKey"
         property "sonar.host.url", "https://9585-129-45-20-46.ngrok-free.app"
+        property "sonar.skipCompile", "true"
     }
 }
 
