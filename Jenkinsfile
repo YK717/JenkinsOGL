@@ -50,7 +50,7 @@ pipeline {
              }
          }
     }
-    /*post {
+    post {
             success {
                 mail to: 'la_bengherbia@esi.dz',
                      subject: "Pipeline Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
@@ -71,5 +71,5 @@ pipeline {
                           color: 'danger',
                           message: "FAILURE: ${env.JOB_NAME} build #${env.BUILD_NUMBER} failed. \nDetails: ${env.BUILD_URL}"
             }
-        }*/
+        }
 }
