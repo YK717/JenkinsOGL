@@ -10,7 +10,7 @@ pipeline {
             post {
                 always {
                     junit 'build/test-results/test/*.xml'
-                    cucumber 'build/reports/cucumber/*.json'
+                    cucumber '**/reports/*.json'
                 }
             }
         }
