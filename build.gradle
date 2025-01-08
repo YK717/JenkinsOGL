@@ -97,7 +97,7 @@ publish {
 
 def notifySlack(String message) {
     try {
-        def webhookUrl = "https://hooks.slack.com/services/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"
+        def webhookUrl = "https://hooks.slack.com/services/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"
         if (!webhookUrl) {
             println "Skipping Slack notification: webhook URL not configured"
             return
@@ -130,7 +130,7 @@ def notifyTeamByEmail(String messageText) {
 
     // Credentials (replace with your actual details)
     def username = "la_bengherbia@esi.dz"
-    def password = "ohdf sdaf ofaf zemw"
+    def password = "ohdf sdaf ofaf zemw "
 
     // Create session with authentication
     def session = javax.mail.Session.getInstance(props,
