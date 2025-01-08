@@ -52,7 +52,7 @@ pipeline {
     }
     post {
             success {
-                mail to: 'lm_arabet@esi.dz',
+                mail to: 'la_bengherbia@esi.dz',
                      subject: "Pipeline Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                      body: """The pipeline for ${env.JOB_NAME} build #${env.BUILD_NUMBER} completed successfully.
                              \nCheck the details at: ${env.BUILD_URL}"""
@@ -62,7 +62,7 @@ pipeline {
                           message: "SUCCESS: ${env.JOB_NAME} build #${env.BUILD_NUMBER} completed successfully. \nDetails: ${env.BUILD_URL}"
             }
             failure {
-                mail to: 'lm_arabet@esi.dz',
+                mail to: 'la_bengherbia@esi.dz',
                      subject: "Pipeline Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                      body: """The pipeline for ${env.JOB_NAME} build #${env.BUILD_NUMBER} failed.
                              \nCheck the details at: ${env.BUILD_URL}"""
