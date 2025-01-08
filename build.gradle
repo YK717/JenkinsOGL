@@ -129,8 +129,8 @@ def notifyTeamByEmail(String messageText) {
     props.put("mail.smtp.port", "587")
 
     // Credentials (replace with your actual details)
-    def username = "la_bengherbia@esi.com"
-    def password = "ohdf sdaf ofaf zemw "
+    def username = "la_bengherbia@esi.dz"
+    def password = "ohdf sdaf ofaf zemw"
 
     // Create session with authentication
     def session = javax.mail.Session.getInstance(props,
