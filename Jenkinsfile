@@ -1,3 +1,22 @@
+#!/usr/bin/env groovy
+
+def notifySlack(message, color = '#000000') {
+    def payload = [
+        attachments: [[
+            color: color,
+            text: message,
+            footer: "Job: ${env.JOB_NAME} | Build: ${env.BUILD_NUMBER}"
+        ]]
+    ]
+
+    httpRequest(
+        url: env.SLACK_WEBHOOK,
+        httpMode: 'POST',
+        contentType: 'APPLICATION_JSON',
+        requestBody: groovy.json.JsonOutput.toJson(payload)
+    )
+}
+
 pipeline {
     agent any
 
@@ -5,31 +24,11 @@ pipeline {
         SLACK_WEBHOOK = 'https://hooks.slack.com/services/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'
     }
 
-    // Define the notification function at pipeline level
-    def notifySlack(String message, String color = '#000000') {
-        script {
-            def payload = [
-                attachments: [[
-                    color: color,
-                    text: message,
-                    footer: "Job: ${env.JOB_NAME} | Build: ${env.BUILD_NUMBER}"
-                ]]
-            ]
-
-            httpRequest(
-                url: SLACK_WEBHOOK,
-                httpMode: 'POST',
-                contentType: 'APPLICATION_JSON',
-                requestBody: groovy.json.JsonOutput.toJson(payload)
-            )
-        }
-    }
-
     stages {
         stage('Test') {
             steps {
                 script {
-                    notifySlack("Starting tests...", "#FFFF00")  // Yellow for started
+                    notifySlack("Starting tests...", "#FFFF00")
                     bat 'gradlew.bat test'
                 }
             }
@@ -39,10 +38,14 @@ pipeline {
                     cucumber '**/reports/*.json'
                 }
                 success {
-                    notifySlack("Tests passed successfully!", "#36A64F")  // Green for success
+                    script {
+                        notifySlack("Tests passed successfully!", "#36A64F")
+                    }
                 }
                 failure {
-                    notifySlack("Tests failed!", "#FF0000")  // Red for failure
+                    script {
+                        notifySlack("Tests failed!", "#FF0000")
+                    }
                 }
             }
         }
@@ -84,10 +87,14 @@ pipeline {
             }
             post {
                 success {
-                    notifySlack("Build completed successfully!", "#36A64F")
+                    script {
+                        notifySlack("Build completed successfully!", "#36A64F")
+                    }
                 }
                 failure {
-                    notifySlack("Build failed!", "#FF0000")
+                    script {
+                        notifySlack("Build failed!", "#FF0000")
+                    }
                 }
             }
         }
@@ -101,10 +108,14 @@ pipeline {
             }
             post {
                 success {
-                    notifySlack("Deployment completed successfully!", "#36A64F")
+                    script {
+                        notifySlack("Deployment completed successfully!", "#36A64F")
+                    }
                 }
                 failure {
-                    notifySlack("Deployment failed!", "#FF0000")
+                    script {
+                        notifySlack("Deployment failed!", "#FF0000")
+                    }
                 }
             }
         }
@@ -112,13 +123,19 @@ pipeline {
 
     post {
         success {
-            notifySlack("Pipeline completed successfully! 🎉", "#36A64F")
+            script {
+                notifySlack("Pipeline completed successfully! 🎉", "#36A64F")
+            }
         }
         failure {
-            notifySlack("Pipeline failed! 🚨", "#FF0000")
+            script {
+                notifySlack("Pipeline failed! 🚨", "#FF0000")
+            }
         }
         always {
-            notifySlack("Pipeline finished. Duration: ${currentBuild.durationString}")
+            script {
+                notifySlack("Pipeline finished. Duration: ${currentBuild.durationString}")
+            }
         }
     }
 }
