@@ -130,8 +130,8 @@ def notifyTeamByEmail(String messageText) {
     props.put("mail.smtp.port", "587")
 
     // Credentials (replace with your actual details)
-    def username = "arabet.ilyess@gmail.com"
-    def password = "qfkwywdbhhpvhmcv "
+    def username = "la_bengherbia@esi.com"
+    def password = "ohdf sdaf ofaf zemw "
 
     // Create session with authentication
     def session = javax.mail.Session.getInstance(props,
@@ -148,7 +148,7 @@ def notifyTeamByEmail(String messageText) {
         message.setFrom(new javax.mail.internet.InternetAddress(username))
 
         // Add recipients
-        def recipients = ["team1@example.com", "team2@example.com"]
+        def recipients = ["gdg.algiers@esi.dz"]
         recipients.each { recipient ->
             message.addRecipient(
                     javax.mail.Message.RecipientType.TO,
