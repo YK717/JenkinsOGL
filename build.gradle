@@ -88,7 +88,7 @@ publishing {
 
 publish {
     doLast {
-        //notifySlack("Publish successful for project ${project.name}, version ${project.version}!")
+        notifySlack("Publish successful for project ${project.name}, version ${project.version}!")
         notifyTeamByEmail("Publish successful for project ${project.name}, version ${project.version}")
     }
 }
