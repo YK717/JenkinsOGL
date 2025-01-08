@@ -59,7 +59,7 @@ jacocoTestReport {
 sonar {
     properties {
         property "sonar.projectKey", "myProjectKey"
-        property "sonar.host.url", "https://9585-129-45-20-46.ngrok-free.app"
+        property "sonar.host.url", "http://197.140.142.82:9000"
         property 'sonar.skipCompile', 'true'
     }
 }
