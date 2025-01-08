@@ -4,7 +4,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh './gradlew test'
+                    bat 'gradlew.bat test'
                 }
             }
             post {
@@ -17,7 +17,7 @@ pipeline {
         stage('SonarQube') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh './gradlew sonar'
+                    bat 'gradlew.bat sonar'
                 }
             }
         }
@@ -35,8 +35,8 @@ pipeline {
          stage('Build') {
              steps {
                  script {
-                     sh './gradlew build'
-                     sh './gradlew javadoc'
+                     bat 'gradlew.bat build'
+                     bat 'gradlew.bat javadoc'
                      archiveArtifacts artifacts: '**/*.jar', allowEmptyArchive: true
                      archiveArtifacts artifacts: 'build/docs/**', allowEmptyArchive: true
                  }
@@ -45,7 +45,7 @@ pipeline {
          stage('Deploy') {
              steps {
                  script {
-                     sh './gradlew publish'
+                     bat 'gradlew.bat publish'
                  }
              }
          }
@@ -53,24 +53,23 @@ pipeline {
     post {
             success {
                 mail to: 'lm_arabet@esi.dz',
-                     subject: 'Pipeline Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
+                     subject: "Pipeline Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                      body: """The pipeline for ${env.JOB_NAME} build #${env.BUILD_NUMBER} completed successfully.
                              \nCheck the details at: ${env.BUILD_URL}"""
 
                 slackSend channel: '#jenkins-notifications',
-                                      color: 'good',
-                                      message: "SUCCESS: ${env.JOB_NAME} build #${env.BUILD_NUMBER} completed successfully. \nDetails: ${env.BUILD_URL}"
+                          color: 'good',
+                          message: "SUCCESS: ${env.JOB_NAME} build #${env.BUILD_NUMBER} completed successfully. \nDetails: ${env.BUILD_URL}"
             }
             failure {
                 mail to: 'lm_arabet@esi.dz',
-                     subject: 'Pipeline Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}',
+                     subject: "Pipeline Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                      body: """The pipeline for ${env.JOB_NAME} build #${env.BUILD_NUMBER} failed.
                              \nCheck the details at: ${env.BUILD_URL}"""
 
                 slackSend channel: '#jenkins-notifications',
-                                      color: 'danger',
-                                      message: "FAILURE: ${env.JOB_NAME} build #${env.BUILD_NUMBER} failed. \nDetails: ${env.BUILD_URL}"
-
+                          color: 'danger',
+                          message: "FAILURE: ${env.JOB_NAME} build #${env.BUILD_NUMBER} failed. \nDetails: ${env.BUILD_URL}"
             }
         }
 }
