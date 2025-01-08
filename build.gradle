@@ -1,185 +1,3 @@
-/*
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.sun.mail:javax.mail:1.6.2'
-    }
-}
-
-
-
-plugins {
-    id 'java'
-    id("com.github.spacialcircumstances.gradle-cucumber-reporting") version "0.1.25"
-    id 'jacoco'
-    id("org.sonarqube") version "4.4.0.3356"
-    id 'maven-publish'
-
-}
-
-repositories {
-    mavenCentral()
-}
-group = 'com.example'
-version = '1.0-SNAPSHOT'
-
-
-cucumberReports {
-    outputDir = file('build/reports/cucumber')
-    buildId = '0'
-    reports = files('build/reports/cucumber/json/test-results.json')
-}
-
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'io.cucumber:cucumber-java:6.0.0'
-    testImplementation 'io.cucumber:cucumber-junit:6.0.0'
-    testImplementation 'junit:junit:4.12'
-    implementation 'com.sun.mail:javax.mail:1.6.2'
-}
-
-test {
-    finalizedBy jacocoTestReport
-    //finalizedBy 'sonar'
-}
-
-jacocoTestReport {
-    dependsOn test
-    reports {
-        xml.required = false
-        csv.required = false
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
-    }
-}
-
-sonar {
-    properties {
-        property "sonar.projectKey", "myProjectKey"
-        property "sonar.host.url", "http://197.140.142.82:9000/"
-        property "sonar.skipCompile", "true"
-    }
-}
-
-javadoc {
-    destinationDir = file("${buildDir}/docs/javadoc")
-}
-
-publishing {
-    repositories {
-        maven {
-            url 'https://mymavenrepo.com/repo/cEmjfkxugPlzLxXg1A2B/'
-            credentials {
-                username 'myMavenRepo'
-                password 'test0005'
-            }
-        }
-    }
-
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
-
-publish {
-    doLast {
-        //notifySlack("Publish successful for project ${project.name}, version ${project.version}!")
-        notifyTeamByEmail("Publish successful for project ${project.name}, version ${project.version}")
-    }
-}
-
-// Define the notification function
-/*def notifySlack(String message) {
-    def webhookUrl = "https://hooks.slack.com/services/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"
-
-    def payload = [text: message]
-    def jsonPayload = new groovy.json.JsonBuilder(payload).toString()
-
-    def url = new URL(webhookUrl)
-    def connection = url.openConnection()
-    connection.requestMethod = "POST"
-    connection.doOutput = true
-    connection.setRequestProperty("Content-Type", "application/json")
-
-    connection.outputStream.withWriter("UTF-8") { writer ->
-        writer.write(jsonPayload)
-    }
-
-    if (connection.responseCode != 200) {
-        throw new GradleException("Failed to send Slack notification: ${connection.responseCode} ${connection.responseMessage}")
-    }
-}
-
-def notifyTeamByEmail(String messageText) {
-    def props = new Properties()
-    props.put("mail.smtp.auth", "true")
-    props.put("mail.smtp.starttls.enable", "true")
-    props.put("mail.smtp.host", "smtp.gmail.com")
-    props.put("mail.smtp.port", "587")
-
-    // Credentials (replace with your actual details)
-    def username = "la_bengherbia@esi.dz"
-    def password = "ohdf sdaf ofaf zemw "
-
-    // Create session with authentication
-    def session = javax.mail.Session.getInstance(props,
-            new javax.mail.Authenticator() {
-                protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-                    return new javax.mail.PasswordAuthentication(username, password)
-                }
-            }
-    )
-
-    try {
-        // Create message using fully qualified class names
-        def message = new javax.mail.internet.MimeMessage(session)
-        message.setFrom(new javax.mail.internet.InternetAddress(username))
-
-        // Add recipients
-        def recipients = ["gdg.algiers@esi.dz", "km_toubal@esi.dz"]
-        recipients.each { recipient ->
-            message.addRecipient(
-                    javax.mail.Message.RecipientType.TO,
-                    new javax.mail.internet.InternetAddress(recipient)
-            )
-        }
-
-        // Set email details
-        message.setSubject("Deployment Notification - ${project.name}")
-        message.setText(messageText)
-
-        // Send email
-        javax.mail.Transport.send(message)
-
-        println "Email notification sent successfully"
-    } catch (Exception e) {
-        println "Failed to send email: ${e.getMessage()}"
-        e.printStackTrace()
-    }
-}
-
-//
-//
-//
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 buildscript {
@@ -241,7 +59,7 @@ jacocoTestReport {
 sonar {
     properties {
         property "sonar.projectKey", "myProjectKey"
-        property "sonar.host.url", "http://197.140.142.82:9000/"
+        property "sonar.host.url", "https://9585-129-45-20-46.ngrok-free.app"
     }
 }
 
@@ -252,10 +70,11 @@ javadoc {
 publishing {
     repositories {
         maven {
-            url 'https://mymavenrepo.com/repo/cEmjfkxugPlzLxXg1A2B/'
+            url "https://mymavenrepo.com/repo/vl5BUEJf7IpuxkRtNhwD/"
+
             credentials {
-                username 'myMavenRepo'
-                password 'test0005'
+                username "myMavenRepo"
+                password "test"
             }
         }
     }
@@ -276,7 +95,7 @@ publish {
 
 // Define the notification function
 def notifySlack(String message) {
-    def webhookUrl = "https://hooks.slack.com/services/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"
+    def webhookUrl = "https://hooks.slack.com/services/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"
 
     def payload = [text: message]
     def jsonPayload = new groovy.json.JsonBuilder(payload).toString()
@@ -304,8 +123,8 @@ def notifyTeamByEmail(String messageText) {
     props.put("mail.smtp.port", "587")
 
     // Credentials (replace with your actual details)
-    def username = "la_bengherbia@esi.dz"
-    def password = "ohdf sdaf ofaf zemw "
+    def username = "arabet.ilyess@gmail.com"
+    def password = "qfkwywdbhhpvhmcv "
 
     // Create session with authentication
     def session = javax.mail.Session.getInstance(props,
@@ -322,7 +141,7 @@ def notifyTeamByEmail(String messageText) {
         message.setFrom(new javax.mail.internet.InternetAddress(username))
 
         // Add recipients
-        def recipients = ["gdg.algiers@esi.dz"]
+        def recipients = ["team1@example.com", "team2@example.com"]
         recipients.each { recipient ->
             message.addRecipient(
                     javax.mail.Message.RecipientType.TO,
@@ -343,3 +162,5 @@ def notifyTeamByEmail(String messageText) {
         e.printStackTrace()
     }
 }
+
+
