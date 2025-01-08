@@ -60,7 +60,7 @@ sonar {
     properties {
         property "sonar.projectKey", "myProjectKey"
         property "sonar.host.url", "https://9585-129-45-20-46.ngrok-free.app"
-        property "sonar.skipCompile", "true"
+        property 'sonar.skipCompile', 'true'
     }
 }
 
@@ -95,24 +95,30 @@ publish {
 }
 
 // Define the notification function
+
 def notifySlack(String message) {
-    def webhookUrl = "https://hooks.slack.com/services/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"
+    try {
+        def webhookUrl = "https://hooks.slack.com/services/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"
+        if (!webhookUrl) {
+            println "Skipping Slack notification: webhook URL not configured"
+            return
+        }
 
-    def payload = [text: message]
-    def jsonPayload = new groovy.json.JsonBuilder(payload).toString()
+        def connection = new URL(webhookUrl).openConnection() as HttpURLConnection
+        connection.setRequestMethod('POST')
+        connection.setDoOutput(true)
+        connection.setRequestProperty('Content-Type', 'application/json')
 
-    def url = new URL(webhookUrl)
-    def connection = url.openConnection()
-    connection.requestMethod = "POST"
-    connection.doOutput = true
-    connection.setRequestProperty("Content-Type", "application/json")
+        def payload = groovy.json.JsonOutput.toJson([text: message])
 
-    connection.outputStream.withWriter("UTF-8") { writer ->
-        writer.write(jsonPayload)
-    }
+        connection.outputStream.write(payload.getBytes('UTF-8'))
 
-    if (connection.responseCode != 200) {
-        throw new GradleException("Failed to send Slack notification: ${connection.responseCode} ${connection.responseMessage}")
+        def responseCode = connection.responseCode
+        if (responseCode != 200) {
+            println "Slack notification failed with response code: ${responseCode}"
+        }
+    } catch (Exception e) {
+        println "Failed to send Slack notification: ${e.message}"
     }
 }
 
